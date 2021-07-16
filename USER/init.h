@@ -13,7 +13,6 @@
 #ifndef __INIT_H
 #define __INIT_H
 
-
 #include "stm32f4xx.h"
 #include "drv_systick.h"
 #include "drv_timer.h"

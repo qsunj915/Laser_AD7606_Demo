@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    bsp_ad7606.h
   * @author  qsunj
-  * @version test
-  * @date    21-7-15
+  * @version v1.0
+  * @date    21-7-16
   * @brief   
   ******************************************************************************
   */
@@ -17,10 +17,6 @@
 /* 开关全局中断的宏 */
 #define ENABLE_INT()	__set_PRIMASK(0)	/* 使能全局中断 */
 #define DISABLE_INT()	__set_PRIMASK(1)	/* 禁止全局中断 */
-
-/* 每个样本2字节，采集通道 */
-#define CH_NUM			8				/* 采集2通道 */
-#define FIFO_SIZE		1*1024*2		/* 大小不要超过48K (CPU内部RAM 只有64K) */
 
 /* 定义AD7606的SPI GPIO */
 /************************************************************/
@@ -88,32 +84,13 @@
 
 #define AD_SCK_LOW()			GPIO_ResetBits(AD_SPI_SCK_GPIO_PORT, AD_SPI_SCK_PIN);
 #define AD_CSK_HIGH()			GPIO_SetBits(AD_SPI_SCK_GPIO_PORT, AD_SPI_SCK_PIN);
-
-#define AD_MISO_IN				GPIO_ReadOutputDataBit(SPI_MISO_GPIO_PORT, SPI_MISO_GPIO_PIN)
 /***********************************************************************************/
-/* AD数据采集缓冲区 */
-typedef struct
-{
-	uint16_t usRead;
-	uint16_t usWrite;
-	uint16_t usCount;
-	uint16_t usBuf[FIFO_SIZE];
-}FIFO_T;
 
 /* 供外部调用的函数声明 */
 void ad7606_Reset(void);
-void ad7606_SetOS(uint8_t _ucMode);
-void bsp_SET_TIM2_FREQ(uint32_t _ulFreq);
 void bsp_InitAD7606(void);
-void ad7606_StopRecord(void);
-uint8_t GetAdcFormFifo(uint16_t *_usReadAdc);
 void ad7606_IRQSrc(void);
-
-void ad7606_StartRecord(uint32_t _ulFreq);
-
-uint16_t ad7606_ReadBytes(void);
 void ad7606_StartConv(void);
-
-extern FIFO_T  g_tAD;
+float Get_AD7606_voltdata(uint8_t num);
 
 #endif

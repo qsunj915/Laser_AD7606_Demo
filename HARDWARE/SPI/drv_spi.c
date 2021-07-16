@@ -58,27 +58,12 @@ void drv_spi_init( void )
 }
 
 /**
-  * @brief :SPI收发一个字节
+  * @brief :SPI收发一帧（2个字节）
   * @param :
   *			@TxByte: 发送的数据字节
   * @note  :非堵塞式，一旦等待超时，函数会自动退出
   * @retval:接收到的字节
   */
-uint16_t Ex_drv_spi_read_write_byte( void )
-{
-	u8 count=0; 	  
-	u16 Num=0; 
-	AD_CSK_HIGH();	
-	for(count=0;count<16;count++)//读出16位数据
-	{
-		Num<<=1;
-		AD_SCK_LOW();	//下降沿有效
-		if(AD_MISO_IN)Num++;
-		AD_CSK_HIGH();
-	}
-	return(Num);
-}
-
 uint16_t drv_spi_read_write_byte( uint16_t TxByte )
 {
 	uint16_t l_Data = 0;
@@ -106,30 +91,4 @@ uint16_t drv_spi_read_write_byte( uint16_t TxByte )
 	
 	return l_Data;		//返回
 }
-
-
-/**
-  * @brief :SPI收发字符串
-  * @param :
-  *			@ReadBuffer: 接收数据缓冲区地址
-  *			@WriteBuffer:发送字节缓冲区地址
-  *			@Length:字节长度
-  * @note  :非堵塞式，一旦等待超时，函数会自动退出
-  * @retval:无
-  */
-void Ex_drv_spi_read_write_string( uint16_t* ReadBuffer, uint16_t* WriteBuffer, uint16_t Length )
-{
-	GPIO_ResetBits( SPI_NSS_GPIO_PORT, SPI_NSS_GPIO_PIN);	  		//拉低片选
-	while( Length-- )
-	{
-		*ReadBuffer = Ex_drv_spi_read_write_byte(  );		//收发数据
-		ReadBuffer++;
-		WriteBuffer++;			                                    	//读写地址加1
-	}
-	GPIO_SetBits( SPI_NSS_GPIO_PORT, SPI_NSS_GPIO_PIN);				  //拉高片选
-}
-
-/** 硬件SPI */
-
-
 

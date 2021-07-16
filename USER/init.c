@@ -37,15 +37,13 @@ void System_Init(void)
 	bsp_InitAD7606();			//ad7606引脚初始化
 	AD_RANGE_10V();				//量程为正负10V
 	ad7606_StartConv();			//启动采样，避免第1组数据全0的问题
-//	ad7606_StartRecord(200);
-//	Serial_Send(Serial1, "Range = %d, OS = %d, \r\n", g_tAD.usBuf[0], g_tAD.usBuf[1]);
 	
 	TIM2_Init(8399,9);	//1ms
 	TIM3_Init(8399,49);	//5ms
 	TIM5_Init(8399, 99);//10ms
 	
-	
-	Serial_Send(Serial1,"All init are ready\r\n");
+	//初始化完成标志
+	GPIO_ResetBits(GPIOC,LED3); 
 	
 	delay_ms(500);
 	

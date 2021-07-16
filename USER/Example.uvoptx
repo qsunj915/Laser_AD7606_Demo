@@ -22,7 +22,7 @@
   </DaveTm>
 
   <Target>
-    <TargetName>Laser</TargetName>
+    <TargetName>Laser&amp;AD7606</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
