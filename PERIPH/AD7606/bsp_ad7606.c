@@ -208,7 +208,7 @@ void ad7606_IRQSrc(void)
 	}
 	AD_CS_HIGH();
 	ad7606_StartConv();//转换开始信号
-	Serial_Send(Serial1, "Convert result:%d\t", G_conv_data[1]);
+//	Serial_Send(Serial1, "Convert result:%d\t", G_conv_data[1]);
 }
 
 /*

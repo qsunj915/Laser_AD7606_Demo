@@ -33,7 +33,7 @@ void InterruptTask_TIM2(void) {
 //5ms
 void InterruptTask_TIM3(void) {
 	ad7606_IRQSrc();
-	Serial_Send(Serial1, "Convert volt:%f\r\n", Get_AD7606_voltdata(1));
+//	Serial_Send(Serial1, "Convert volt:%f\r\n", Get_AD7606_voltdata(1));
 }
 
 //10ms
